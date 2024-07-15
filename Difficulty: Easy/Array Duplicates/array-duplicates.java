@@ -49,7 +49,6 @@ class GFG {
 class Solution {
     public static ArrayList<Integer> duplicates(int[] arr) {
         // code here
-        int c=0;
         ArrayList<Integer> al=new ArrayList<>();
         Set<Integer> set=new HashSet<>();
         for(int i:arr)
