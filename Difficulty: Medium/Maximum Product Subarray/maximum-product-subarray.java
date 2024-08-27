@@ -28,15 +28,16 @@ class Solution {
     // Function to find maximum product subarray
     long maxProduct(int[] arr, int n) 
     {
-        long pref=1,suff=1,res=Long.MIN_VALUE;
-        for(int i=0;i<n;i++)
-        {
-            if(pref==0) pref=1;
-            if(suff==0) suff=1;
-            pref=pref*arr[i];
-            suff=suff*arr[n-i-1];
-            res=Math.max(res,Math.max(pref,suff));
-        }
-        return res;
+       long pre=1,suf=1;
+       long max=Long.MIN_VALUE;
+       for(int i=0;i<n;i++)
+       {
+            pre*=arr[i];
+            suf*=arr[n-i-1];
+            max=Math.max(max,Math.max(pre,suf));
+            if(pre==0) pre=1;
+            if(suf==0) suf=1;
+       } 
+       return max;
     }
 }
