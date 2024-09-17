@@ -1,7 +1,8 @@
 //{ Driver Code Starts
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.lang.*;
+import java.util.*;
+
 class GFG {
     public static void main(String[] args) {
 
@@ -20,21 +21,12 @@ class GFG {
 
 
 
-class Solution 
-{
-    //Function to reverse words in a given string.
-    String reverseWords(String S)
-    {
-        String[] str=S.split("\\.");
-        StringBuilder st=new StringBuilder();
-        for(int i=str.length-1;i>=0;i--)
-        {
-            st.append(str[i]);
-            if(i!=0)
-            {
-                st.append(".");
-            }
-        }
-        return st.toString();
+class Solution {
+    // Function to reverse words in a given string.
+     public static String reverseWords(String str) {
+        String[] words = str.split("\\.");
+        List<String> wordList = Arrays.asList(words);
+        Collections.reverse(wordList);
+        return String.join(".", wordList);
     }
 }
