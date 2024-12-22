@@ -2,44 +2,29 @@
 import java.io.*;
 import java.util.*;
 
-class IntArray {
-    public static int[] input(BufferedReader br, int n) throws IOException {
-        String[] s = br.readLine().trim().split(" ");
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) a[i] = Integer.parseInt(s[i]);
+class Main {
+    public static void main(String args[]) throws IOException {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine().trim());
 
-        return a;
-    }
-
-    public static void print(int[] a) {
-        for (int e : a) System.out.print(e + " ");
-        System.out.println();
-    }
-
-    public static void print(ArrayList<Integer> a) {
-        for (int e : a) System.out.print(e + " ");
-        System.out.println();
-    }
-}
-
-class GFG {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int t;
-        t = Integer.parseInt(br.readLine());
         while (t-- > 0) {
-            String str[] = br.readLine().trim().split(" ");
+            String line = read.readLine().trim();
+            String[] numsStr = line.split(" ");
+            int[] nums = new int[numsStr.length];
+            for (int i = 0; i < numsStr.length; i++) {
+                nums[i] = Integer.parseInt(numsStr[i]);
+            }
 
-            int n = Integer.parseInt(str[0]);
-            int s = Integer.parseInt(str[1]);
+            int d = Integer.parseInt(read.readLine().trim());
 
-            int[] arr = IntArray.input(br, n);
-
-            Solution obj = new Solution();
-            ArrayList<Integer> res = obj.subarraySum(arr, n, s);
-
-            IntArray.print(res);
+            Solution ob = new Solution();
+            ArrayList<Integer> result = ob.subarraySum(nums, d);
+            // Print all elements in the result list
+            for (int i : result) {
+                System.out.print(i + " ");
+            }
+            System.out.println(); // Print a new line after the result
+            System.out.println("~");
         }
     }
 }
@@ -49,32 +34,27 @@ class GFG {
 
 
 class Solution {
-    static ArrayList<Integer> subarraySum(int[] arr, int n, int s) {
-        // Your code here
-        ArrayList<Integer> list = new ArrayList<>();
-        int sum = 0;
-        int j = 0;                 // first pointer 
-        int i = 0;                 // second pointer
-        while( i < n ){
-            sum += arr[i];    // adding and storing values in sum from array one by one
-            while( sum > s && j < i ){
-
-             // removing previous values from sum when it exceeds the given s value
-                sum -= arr[j];    
-                j++;
+    static ArrayList<Integer> subarraySum(int[] arr, int target) 
+    {
+        int first=0,last=0,arr_length=arr.length,sum=0;
+        while(last<arr_length)
+        {
+            sum=sum+arr[last];
+            last++;
+            if(sum==target)
+            {
+                return new ArrayList<>(Arrays.asList(first+1,last));
             }
-            if( sum == s ){
-                list.add( j + 1 );   // adding first index of subarray whose sum is equal to s
-                list.add( i + 1 );   // adding last index of subarray whose sum is equal to s
-                return list;       // returning list of first and last indexes
+            while(sum>target)
+            {
+                sum=sum-arr[first];
+                first++;
+                if(sum==target)
+                {
+                    return new ArrayList<>(Arrays.asList(first+1,last));
+                }
             }
-            i++;
         }
-
-        // adding -1 to list
-        list.add(-1);
-
-        // if given array doesn't contains any subarray whose sum is equal to s then return -1
-        return list;   
+        return new ArrayList<>(Arrays.asList(-1));
     }
 }
