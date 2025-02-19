@@ -1,50 +1,66 @@
 //{ Driver Code Starts
-import java.util.*;
+// Initial Template for Java
 import java.io.*;
+import java.util.*;
+import java.util.HashMap;
 
+
+// } Driver Code Ends
+class Solution {
+    public ArrayList<Integer> kLargest(int[] arr, int k) 
+    {
+        PriorityQueue<Integer> queue=new PriorityQueue<>();
+        for(int i:arr)
+        {
+            queue.add(i);
+            if(queue.size()>k)
+            {
+                queue.poll();
+            }
+        }
+        ArrayList<Integer> ar=new ArrayList<>(queue);
+        ar.sort(Collections.reverseOrder());
+        return ar;
+    }
+}
+
+
+//{ Driver Code Starts.
 public class Main {
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int tc = Integer.parseInt(br.readLine().trim());
-        while (tc-- > 0) {
-            String[] inputLine;
-            inputLine = br.readLine().trim().split(" ");
-            int n = Integer.parseInt(inputLine[0]);
-            int k = Integer.parseInt(inputLine[1]);
-            int[] arr = new int[n];
-            inputLine = br.readLine().trim().split(" ");
-            for (int i = 0; i < n; i++) {
-                arr[i] = Integer.parseInt(inputLine[i]);
+        int t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+
+            String line = br.readLine();
+            String[] tokens = line.split(" ");
+
+            // Create an ArrayList to store the integers
+            ArrayList<Integer> array = new ArrayList<>();
+
+            // Parse the tokens into integers and add to the array
+            for (String token : tokens) {
+                array.add(Integer.parseInt(token));
             }
 
-            int[] ans = new Solution().kLargest(arr, n, k);
-            for (int x : ans) {
-                System.out.print(x + " ");
+            int[] arr = new int[array.size()];
+            int idx = 0;
+            for (int i : array) arr[idx++] = i;
+
+            int k = Integer.parseInt(br.readLine());
+            // Create Solution object and find closest sum
+            Solution ob = new Solution();
+            ArrayList<Integer> ans = ob.kLargest(arr, k);
+
+            // Print the result as a space-separated string
+            for (int num : ans) {
+                System.out.print(num + " ");
             }
-            System.out.println();
+            System.out.println(); // New line after printing the results
+            System.out.println("~");
         }
     }
 }
 
 // } Driver Code Ends
-
-
-class Solution {
-    int[] kLargest(int[] arr, int n, int k) 
-    {
-        PriorityQueue<Integer> que=new PriorityQueue<>(Collections.reverseOrder());
-        for(int i:arr)
-        {
-            que.add(i);
-        }
-        int[] a=new int[k];
-        int i=0;
-        while(k-->0)
-        {
-            a[i++]=que.peek();
-            que.poll();
-        }
-        return a;
-    }
-}
